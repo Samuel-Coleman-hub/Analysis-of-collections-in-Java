@@ -7,7 +7,6 @@
 import java.util.List;
 
 public interface Directory {
-
     /**
      * Insert a new entry into the directory.
      *
