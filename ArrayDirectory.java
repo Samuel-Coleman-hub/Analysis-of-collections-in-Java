@@ -29,31 +29,52 @@ public class ArrayDirectory implements Directory {
 
     @Override
     public void insertEntry(Entry entry) {
-
+        entriesSize = entriesSize + 1;
+        entries[entries.length] = entry;
     }
 
     @Override
     public void deleteEntryUsingName(String surname) {
 
+        for(int i = 0; i<=entries.length; i++){
+            if(entries[i].getSurname() == surname){
+                entries[i] = null;
+            }
+        }
     }
 
     @Override
     public void deleteEntryUsingExtension(String number) {
-
+        for(int i = 0; i<=entries.length; i++){
+            if(entries[i].getTelephoneExtension() == Integer.parseInt(number)){
+                entries[i] = null;
+            }
+        }
     }
 
     @Override
     public void updateExtensionUsingName(String surname, String newNumber) {
+        for(int i = 0; i<=entries.length; i++){
+            if(entries[i].getSurname() == surname){
+                entries[i].setTelephoneExtension(Integer.parseInt(newNumber));
+            }
+        }
 
     }
 
     @Override
     public String lookupExtension(String surname) {
-        return null;
+        String extensionResult = "";
+        for(int i = 0; i<=entries.length; i++){
+            if(entries[i].getSurname() == surname){
+                extensionResult = Integer.toString(entries[i].getTelephoneExtension());
+            }
+        }
+        return extensionResult;
     }
 
     @Override
     public List<Entry> toArrayList() {
-        return null;
+        return new ArrayList<>(Arrays.asList(entries));
     }
 }

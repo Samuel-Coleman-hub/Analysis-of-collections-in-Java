@@ -18,6 +18,10 @@ public class Entry {
         return telephoneExtension;
     }
 
+    public void setTelephoneExtension(int telephoneExtension){
+        this.telephoneExtension = telephoneExtension;
+    }
+
     public Entry(ArrayList<String> entryData){
         surname = entryData.get(0);
         initials = entryData.get(1);
