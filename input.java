@@ -23,6 +23,7 @@ public class input {
         ArrayList<String> staffData = new ArrayList<String>();
         ArrayDirectory arrayDirectory = new ArrayDirectory();
         ArrayListDirectory arrayListDirectory = new ArrayListDirectory();
+        HashMapDirectory hashMapDirectory = new HashMapDirectory();
 
         try{
             FileReader fileReader = new FileReader(file);
@@ -36,6 +37,8 @@ public class input {
                 }
                 arrayDirectory.storeInArray(staffData);
                 arrayListDirectory.storeInArray(staffData);
+                hashMapDirectory.storeInHashMap(staffData);
+
                 staffData.clear();
             }
         }
@@ -44,6 +47,7 @@ public class input {
         }
         arrayDirectory.printArray();
         arrayListDirectory.printArray();
+        hashMapDirectory.printArray();
     }
 
 }
