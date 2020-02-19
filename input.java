@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class readCSV {
+public class input {
 
 
 
@@ -22,6 +22,7 @@ public class readCSV {
     public static void readData(String file){
         ArrayList<String> staffData = new ArrayList<String>();
         ArrayDirectory arrayDirectory = new ArrayDirectory();
+        ArrayListDirectory arrayListDirectory = new ArrayListDirectory();
 
         try{
             FileReader fileReader = new FileReader(file);
@@ -34,6 +35,7 @@ public class readCSV {
                     staffData.add(value);
                 }
                 arrayDirectory.storeInArray(staffData);
+                arrayListDirectory.storeInArray(staffData);
                 staffData.clear();
             }
         }
@@ -41,6 +43,7 @@ public class readCSV {
             e.printStackTrace();
         }
         arrayDirectory.printArray();
+        arrayListDirectory.printArray();
     }
 
 }

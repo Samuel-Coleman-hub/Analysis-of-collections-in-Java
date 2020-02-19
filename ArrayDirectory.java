@@ -22,7 +22,6 @@ public class ArrayDirectory implements Directory {
 
     //Delete after
     public void printArray(){
-        System.out.println(Arrays.toString(entries));
         System.out.println(entries[0].getInitials() + " " + entries[0].getSurname() + " " +
                 entries[0].getTelephoneExtension());
     }
