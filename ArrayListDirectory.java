@@ -13,8 +13,7 @@ public class ArrayListDirectory implements Directory {
     }
 
     public void printArray(){
-        System.out.println(entriesArrayList.get(1).getInitials() + " " + entriesArrayList.get(1).getSurname() + " " +
-                entriesArrayList.get(1).getTelephoneExtension());
+        System.out.println(entriesArrayList.get(entriesArrayList.size() -1).getSurname());
     }
 
     @Override

@@ -2,6 +2,7 @@ import java.io.FileReader;
 import com.opencsv.CSVReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class input {
@@ -12,10 +13,12 @@ public class input {
         try {
             String CSV_FILE_PATH = "./test_data.csv";
             readData(CSV_FILE_PATH);
+            consoleInterface();
         }
         catch(Exception e){
             e.printStackTrace();
         }
+
 
     }
 
@@ -48,6 +51,60 @@ public class input {
         arrayDirectory.printArray();
         arrayListDirectory.printArray();
         hashMapDirectory.printArray();
+    }
+
+    public static void consoleInterface(){
+        String surname = "";
+        String initial = "";
+        int telephoneExtension = 0;
+
+        ArrayDirectory arrayDirectory = new ArrayDirectory();
+        ArrayListDirectory arrayListDirectory = new ArrayListDirectory();
+        HashMapDirectory hashMapDirectory = new HashMapDirectory();
+
+
+        System.out.println("If you would like to input an entry please press y.");
+        Scanner scanner = new Scanner(System. in);
+        String response = scanner. nextLine();
+        System.out.println(response);
+
+        if (response.equals("y")){
+            System.out.println("Enter the staffs surname: ");
+            try{
+                surname = scanner.nextLine();
+            }catch(Exception e){
+                System.out.println("Please ensure a string is entered for surname. Try again");
+                consoleInterface();
+            }
+            System.out.println("Enter the staffs Initials: ");
+            try{
+                initial = scanner.nextLine();
+            }catch(Exception e){
+                System.out.println("Please ensure a string is entered for initials. Try again");
+                consoleInterface();
+            }
+            System.out.println("Enter the staffs telephone extension number");
+            try{
+                telephoneExtension = Integer.parseInt(scanner.nextLine());
+            }catch(Exception e){
+                System.out.println("Please ensure that you have entered the telephone extension as a number in " +
+                        "digits. Try again");
+                consoleInterface();
+            }
+            ArrayList<String> staffData = new ArrayList<>(Arrays.asList(surname, initial, Integer.toString
+                    (telephoneExtension)));
+
+            Entry entry = new Entry(staffData);
+            arrayDirectory.insertEntry(entry);
+            arrayListDirectory.insertEntry(entry);
+            hashMapDirectory.insertEntry(entry);
+
+            System.out.println("The entry has been completed");
+        }
+        else{
+            System.out.println("You have selected not to input an entry");
+            consoleInterface();
+        }
     }
 
 }

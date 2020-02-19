@@ -13,8 +13,11 @@ public class HashMapDirectory implements Directory {
     }
 
     public void printArray(){
-        System.out.println(entriesBySurname.get("Mayow").getInitials() + " " + entriesBySurname.get("Mayow").
-                getSurname() + " " + Integer.toString(entriesBySurname.get("Mayow").getTelephoneExtension()));
+        try {
+            System.out.println(entriesBySurname.get("Coleman").getInitials());
+        }catch(Exception e){
+
+        }
     }
 
     @Override

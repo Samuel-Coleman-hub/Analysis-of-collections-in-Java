@@ -22,14 +22,13 @@ public class ArrayDirectory implements Directory {
 
     //Delete after
     public void printArray(){
-        System.out.println(entries[0].getInitials() + " " + entries[0].getSurname() + " " +
-                entries[0].getTelephoneExtension());
+        System.out.println((entries[entries.length -1]).getSurname());
     }
 
     @Override
     public void insertEntry(Entry entry) {
         entriesSize = entriesSize + 1;
-        entries[entries.length] = entry;
+        entries[entries.length - 1] = entry;
     }
 
     @Override
