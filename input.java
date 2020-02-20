@@ -1,5 +1,7 @@
 import java.io.FileReader;
 import com.opencsv.CSVReader;
+import com.sun.jdi.Value;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -41,9 +43,10 @@ public class input {
                 for(String value : nextLine){
                     staffData.add(value);
                 }
-                arrayDirectory.storeInArray(staffData);
-                arrayListDirectory.storeInArray(staffData);
-                hashMapDirectory.storeInHashMap(staffData);
+                Entry entry = new Entry(staffData);
+                arrayDirectory.insertEntry(entry);
+                arrayListDirectory.insertEntry(entry);
+                hashMapDirectory.insertEntry(entry);
                 staffData.clear();
             }
         }

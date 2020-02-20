@@ -7,29 +7,21 @@ public class ArrayDirectory implements Directory {
     private int entriesSize = 1001;
     private Entry entries[] = new Entry[entriesSize];
 
-
-    public void storeInArray(ArrayList<String> staffData){
-        Entry entry = new Entry(staffData);
-
-        for(int i = 0; i<= 1000;i++){
-            if(entries[i] == null){
-                entries[i] = entry;
-            }else{
-
-            }
-        }
-    }
-
-    //Delete after
-    public void printArray(){
-        System.out.println((entries[entries.length -1]).getSurname());
-    }
-
     @Override
     public void insertEntry(Entry entry) {
-        entriesSize = entriesSize + 1;
-        entries[entries.length - 1] = entry;
+        for (int i = 0; i <= entries.length; i++) {
+            if (entries[i] == null) {
+                entries[i] = entry;
+                break;
+            }else{
+                entriesSize = entriesSize + 1;
+                entries[entries.length - 1] = entry;
+            }
+        }
+
+
     }
+
 
     @Override
     public void deleteEntryUsingName(String surname) {

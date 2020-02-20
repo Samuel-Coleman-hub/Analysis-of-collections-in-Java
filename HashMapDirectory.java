@@ -6,12 +6,6 @@ public class HashMapDirectory implements Directory {
     HashMap<String, Entry> entriesBySurname = new HashMap<String, Entry>();
     HashMap<String, Entry> entriesByExtension = new HashMap<String, Entry>();
 
-    public void storeInHashMap(ArrayList<String> staffData){
-        Entry entry = new Entry(staffData);
-        entriesBySurname.put(entry.getSurname(), entry);
-        entriesByExtension.put(Integer.toString(entry.getTelephoneExtension()), entry);
-    }
-
     public void printArray(){
         try {
             System.out.println(entriesBySurname.get("Coleman").getInitials());
