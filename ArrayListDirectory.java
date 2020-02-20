@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ArrayListDirectory implements Directory {
-    private ArrayList<Entry> entriesArrayList = new ArrayList<>();
+    private ArrayList<Entry> entriesArrayList = new ArrayList<Entry>();
 
     public void printArray(){
         System.out.println(entriesArrayList.get(entriesArrayList.size() -1).getSurname());
@@ -19,8 +19,11 @@ public class ArrayListDirectory implements Directory {
     @Override
     public void deleteEntryUsingName(String surname) {
         for(int i = 0;i<entriesArrayList.size(); i++){
-            if(entriesArrayList.get(i).getSurname().equals(surname)){
-                entriesArrayList.set(i, null);
+            if (entriesArrayList.get(i) != null){
+                if(entriesArrayList.get(i).getSurname().equals(surname)) {
+                    entriesArrayList.remove(i);
+                    break;
+                }
             }
         }
     }
@@ -29,7 +32,8 @@ public class ArrayListDirectory implements Directory {
     public void deleteEntryUsingExtension(String number) {
         for(int i = 0; i<entriesArrayList.size(); i++){
             if (entriesArrayList.get(i).getTelephoneExtension() == Integer.parseInt(number)){
-                entriesArrayList.set(i, null);
+                entriesArrayList.remove(i);
+                break;
             }
         }
     }
@@ -46,7 +50,7 @@ public class ArrayListDirectory implements Directory {
     @Override
     public String lookupExtension(String surname) {
         String extensionResult = "";
-        for(int i = 0; i<=entriesArrayList.size(); i++){
+        for(int i = 0; i<entriesArrayList.size(); i++){
             if(entriesArrayList.get(i).getSurname() == surname){
                 extensionResult = Integer.toString(entriesArrayList.get(i).getTelephoneExtension());
             }

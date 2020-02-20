@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,4 +49,49 @@ public class output {
         }
 
     }
+
+    public static void WriteToTxt(Long[][] performanceStats){
+        FileWriter fileWriter = null;
+
+        List<String> headingName = new ArrayList<>();
+        headingName.add("array Directory InsertEntry() Stats: ");
+        headingName.add("array Directory deleteEntryUsingName() Stats: ");
+        headingName.add("array Directory deleteEntryUsingExtension() Stats: ");
+        headingName.add("array Directory lookUpExtension() Stats: ");
+        headingName.add("array List Directory InsertEntry() Stats: ");
+        headingName.add("array List Directory deleteEntryUsingName() Stats: ");
+        headingName.add("array List Directory deleteEntryUsingExtension() Stats: ");
+        headingName.add("array List Directory lookUpExtension() Stats: ");
+        headingName.add("HashMap Directory InsertEntry() Stats: ");
+        headingName.add("HashMap Directory deleteEntryUsingName() Stats: ");
+        headingName.add("HashMap Directory deleteEntryUsingExtension() Stats: ");
+        headingName.add("HashMap Directory lookUpExtension() Stats: ");
+
+        try{
+            fileWriter = new FileWriter("stats.txt");
+            for (int i = 0; i<12; i++){
+                fileWriter.append(headingName.get(i));
+                fileWriter.append("\n");
+                fileWriter.append("Worst Case: " + performanceStats[i][0]);
+                fileWriter.append("\n");
+                fileWriter.append("Average Case: " + performanceStats[i][1]);
+                fileWriter.append("\n");
+                fileWriter.append("Best case: " + performanceStats[i][2]);
+                fileWriter.append("\n");
+                fileWriter.append("\n");
+            }
+            System.out.println("Printed to TextFile");
+        }catch(Exception e){
+            System.out.println("Could not print to TextFile");
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                fileWriter.close();
+            }catch(IOException e){
+                System.out.println("Was not able to close the fileWriter");
+            }
+        }
+    }
+
 }

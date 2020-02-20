@@ -1,23 +1,43 @@
+import com.opencsv.CSVReader;
+
+import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Performance {
 
-    public Long[][] arrayRecordTime(StopWatch stopwatch){
-        StopWatch stopWatch = new StopWatch();
+    public Long[][] arrayRecordTime(){
+
         ArrayDirectory arrayDirectory = new ArrayDirectory();
         ArrayListDirectory arrayListDirectory = new ArrayListDirectory();
         HashMapDirectory hashMapDirectory = new HashMapDirectory();
+        StopWatch stopWatch = new StopWatch();
         ArrayList<Long> arrayTimeRecordings = new ArrayList<>();
-        //Calculates Stats for the Array Directory Insertion
-        for (int i = 0; i <=1000; i++) {
-            stopWatch.start();
-            arrayDirectory.insertEntry(arrayDirectory.toArrayList().get(i));
-            stopWatch.stop();
-            arrayTimeRecordings.add(stopWatch.getElapsedTime());
-            stopWatch.reset();
+        ArrayList<String> staffData = new ArrayList<String>();
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                stopWatch.start();
+                arrayDirectory.insertEntry(entry);
+                stopWatch.stop();
+                arrayTimeRecordings.add(stopWatch.getElapsedTime());
+                stopWatch.reset();
+                staffData.clear();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         long arrayInsertTimeMax = Collections.max(arrayTimeRecordings);
         long arrayInsertTimeMin = Collections.min(arrayTimeRecordings);
@@ -29,7 +49,7 @@ public class Performance {
         arrayTimeRecordings.clear();
 
         //Calculates stats for deleting by surname in the ArrayDirectory
-        for(int i = 0; i<= 1000; i++){
+        for(int i = 0; i< 1000; i++){
             stopWatch.start();
             arrayDirectory.deleteEntryUsingName(arrayDirectory.toArrayList().get(i).getSurname());
             stopWatch.stop();
@@ -44,25 +64,27 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
-        //Calculates stats for deleting by extension in the ArrayDirectory
-        for (int i = 0; i<=1000; i++){
-            stopWatch.start();
-            arrayDirectory.deleteEntryUsingExtension(Integer.toString(arrayDirectory.toArrayList().get(i).
-                    getTelephoneExtension()));
-            stopWatch.stop();
-            arrayTimeRecordings.add(stopWatch.getElapsedTime());
-            stopWatch.reset();
+        //Adds Entries back
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                arrayDirectory.insertEntry(entry);
+                staffData.clear();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        long arrayDeleteEMax = Collections.max(arrayTimeRecordings);
-        long arrayDeleteEMin = Collections.min(arrayTimeRecordings);
-        long arrayDeleteEAverage = calculateAverage(arrayTimeRecordings);
-
-        Long[] arrayDeleteEStats = {arrayDeleteEMax, arrayDeleteEAverage,arrayDeleteEMin};
-
-        arrayTimeRecordings.clear();
 
         //Calculates stats for lookup in the ArrayDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<1000; i++){
             stopWatch.start();
             arrayDirectory.lookupExtension(Integer.toString(arrayDirectory.toArrayList().get(i).
                     getTelephoneExtension()));
@@ -78,13 +100,45 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
-        //Calculates stats for insertion in the arrayList
-        for (int i = 0; i<=1000; i++){
+        //Calculates stats for deleting by extension in the ArrayDirectory
+        for (int i = 0; i<1000; i++){
             stopWatch.start();
-            arrayListDirectory.insertEntry(arrayListDirectory.toArrayList().get(i));
+            arrayDirectory.deleteEntryUsingExtension(Integer.toString(arrayDirectory.toArrayList().get(i).
+                    getTelephoneExtension()));
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
             stopWatch.reset();
+        }
+        long arrayDeleteEMax = Collections.max(arrayTimeRecordings);
+        long arrayDeleteEMin = Collections.min(arrayTimeRecordings);
+        long arrayDeleteEAverage = calculateAverage(arrayTimeRecordings);
+
+        Long[] arrayDeleteEStats = {arrayDeleteEMax, arrayDeleteEAverage,arrayDeleteEMin};
+
+        arrayTimeRecordings.clear();
+
+        //Adds Entries back
+        //Calculates stats for insertion in the ArrayList
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                stopWatch.start();
+                arrayListDirectory.insertEntry(entry);
+                stopWatch.stop();
+                arrayTimeRecordings.add(stopWatch.getElapsedTime());
+                stopWatch.reset();
+                staffData.clear();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         long listInsertMax = Collections.max(arrayTimeRecordings);
         long listInsertMin = Collections.min(arrayTimeRecordings);
@@ -94,10 +148,31 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
+        //Add entries back
+
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                arrayListDirectory.insertEntry(entry);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Calculates stats for deleting by surname in arrayListDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<1000; i++){
             stopWatch.start();
-            arrayListDirectory.deleteEntryUsingName(arrayListDirectory.toArrayList().get(i).getSurname());
+            System.out.println(arrayListDirectory.toArrayList().get(i));
+            System.out.println(Arrays.toString(arrayListDirectory.toArrayList().toArray()));
+            arrayListDirectory.deleteEntryUsingName(arrayListDirectory.toArrayList().get(0).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
             stopWatch.reset();
@@ -110,8 +185,27 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
+        //Add entries back
+
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                arrayListDirectory.insertEntry(entry);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Calculates stats for deleting by extension in arrayListDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<1000; i++){
             stopWatch.start();
             arrayListDirectory.deleteEntryUsingExtension(Integer.toString(arrayListDirectory.toArrayList().get(i).
                     getTelephoneExtension()));
@@ -128,7 +222,7 @@ public class Performance {
         arrayTimeRecordings.clear();
 
         //Calculates stats for lookup in arrayListDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<1000; i++){
             stopWatch.start();
             arrayListDirectory.lookupExtension(Integer.toString(arrayListDirectory.toArrayList().get(i).
                             getTelephoneExtension()));
@@ -144,13 +238,28 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
-        //Calculates stats for insertion in HashMapDirectory
-        for (int i = 0; i<=1000; i++){
-            stopWatch.start();
-            hashMapDirectory.insertEntry(hashMapDirectory.toArrayList().get(i));
-            stopWatch.stop();
-            arrayTimeRecordings.add(stopWatch.getElapsedTime());
-            stopWatch.reset();
+        //Calculates stats for insertion in HashMap
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                stopWatch.start();
+                hashMapDirectory.insertEntry(entry);
+                stopWatch.stop();
+                arrayTimeRecordings.add(stopWatch.getElapsedTime());
+                stopWatch.reset();
+                staffData.clear();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         long hashMapInsertMax = Collections.max(arrayTimeRecordings);
         long hashMapInsertMin = Collections.min(arrayTimeRecordings);
@@ -160,10 +269,31 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
+        //Adds entries back
+
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                hashMapDirectory.insertEntry(entry);
+                staffData.clear();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Calculates stats for deleting by surname in HashMapDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<hashMapDirectory.toArrayList().size(); i++){
             stopWatch.start();
-            hashMapDirectory.deleteEntryUsingName(hashMapDirectory.toArrayList().get(i).getSurname());
+            hashMapDirectory.deleteEntryUsingName(hashMapDirectory.toArrayList().get(0).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
             stopWatch.reset();
@@ -176,10 +306,30 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
+        //Add entries back
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                hashMapDirectory.insertEntry(entry);
+                staffData.clear();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Calculates stats for deleting by extension in HashMapDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<hashMapDirectory.toArrayList().size(); i++){
             stopWatch.start();
-            hashMapDirectory.deleteEntryUsingExtension(Integer.toString(hashMapDirectory.toArrayList().get(i).
+            hashMapDirectory.deleteEntryUsingExtension(Integer.toString(hashMapDirectory.toArrayList().get(0).
                     getTelephoneExtension()));
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
@@ -193,11 +343,30 @@ public class Performance {
 
         arrayTimeRecordings.clear();
 
+        //Add entries
+        try{
+            FileReader fileReader = new FileReader("./test_data.csv");
+
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] nextLine;
+
+            while((nextLine = csvReader.readNext()) != null){
+                for(String value : nextLine){
+                    staffData.add(value);
+                }
+                Entry entry = new Entry(staffData);
+                hashMapDirectory.insertEntry(entry);
+                staffData.clear();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Calculates stats for lookup in hashMapDirectory
-        for (int i = 0; i<=1000; i++){
+        for (int i = 0; i<hashMapDirectory.toArrayList().size(); i++){
             stopWatch.start();
-            hashMapDirectory.lookupExtension(Integer.toString(hashMapDirectory.toArrayList().get(i).
-                    getTelephoneExtension()));
+            hashMapDirectory.lookupExtension(hashMapDirectory.toArrayList().get(i).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
             stopWatch.reset();
@@ -220,7 +389,7 @@ public class Performance {
 
     public Long calculateAverage(ArrayList<Long> values){
         Long totalTimes = 0L;
-        for (int i = 0; i<=values.size();i++){
+        for (int i = 0; i<=values.size() - 1;i++){
             totalTimes =+ values.get(i);
         }
         return totalTimes/values.size();
