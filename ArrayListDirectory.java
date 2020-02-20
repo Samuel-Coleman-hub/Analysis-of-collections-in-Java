@@ -14,6 +14,7 @@ public class ArrayListDirectory implements Directory {
 
     public void printArray(){
         System.out.println(entriesArrayList.get(entriesArrayList.size() -1).getSurname());
+        System.out.println(entriesArrayList.get(3).getSurname());
     }
 
     @Override

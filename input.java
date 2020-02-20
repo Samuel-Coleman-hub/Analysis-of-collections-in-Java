@@ -14,6 +14,8 @@ public class input {
             String CSV_FILE_PATH = "./test_data.csv";
             readData(CSV_FILE_PATH);
             consoleInterface();
+
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -27,6 +29,7 @@ public class input {
         ArrayDirectory arrayDirectory = new ArrayDirectory();
         ArrayListDirectory arrayListDirectory = new ArrayListDirectory();
         HashMapDirectory hashMapDirectory = new HashMapDirectory();
+        output output = new output();
 
         try{
             FileReader fileReader = new FileReader(file);
@@ -41,16 +44,16 @@ public class input {
                 arrayDirectory.storeInArray(staffData);
                 arrayListDirectory.storeInArray(staffData);
                 hashMapDirectory.storeInHashMap(staffData);
-
                 staffData.clear();
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        arrayDirectory.printArray();
+        output.createTable(arrayListDirectory.toArrayList());
+        output.writeToCSV(arrayListDirectory.toArrayList());
         arrayListDirectory.printArray();
-        hashMapDirectory.printArray();
+
     }
 
     public static void consoleInterface(){
@@ -105,6 +108,7 @@ public class input {
             System.out.println("You have selected not to input an entry");
             consoleInterface();
         }
+
     }
 
 }
