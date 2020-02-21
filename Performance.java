@@ -22,6 +22,7 @@ public class Performance {
 
             CSVReader csvReader = new CSVReader(fileReader);
             String[] nextLine;
+            int i = 0;
 
             while((nextLine = csvReader.readNext()) != null){
                 for(String value : nextLine){
@@ -32,8 +33,10 @@ public class Performance {
                 arrayDirectory.insertEntry(entry);
                 stopWatch.stop();
                 arrayTimeRecordings.add(stopWatch.getElapsedTime());
+                System.out.println(arrayTimeRecordings.get(i));
                 stopWatch.reset();
                 staffData.clear();
+                i++;
             }
         }
         catch (Exception e){
@@ -170,8 +173,6 @@ public class Performance {
         //Calculates stats for deleting by surname in arrayListDirectory
         for (int i = 0; i<1000; i++){
             stopWatch.start();
-            System.out.println(arrayListDirectory.toArrayList().get(i));
-            System.out.println(Arrays.toString(arrayListDirectory.toArrayList().toArray()));
             arrayListDirectory.deleteEntryUsingName(arrayListDirectory.toArrayList().get(0).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
@@ -388,9 +389,10 @@ public class Performance {
     }
 
     public Long calculateAverage(ArrayList<Long> values){
+        //Calculates the average and returns it
         Long totalTimes = 0L;
         for (int i = 0; i<=values.size() - 1;i++){
-            totalTimes =+ values.get(i);
+            totalTimes += values.get(i);
         }
         return totalTimes/values.size();
     }

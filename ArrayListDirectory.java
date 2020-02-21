@@ -6,18 +6,15 @@ import java.util.List;
 public class ArrayListDirectory implements Directory {
     private ArrayList<Entry> entriesArrayList = new ArrayList<Entry>();
 
-    public void printArray(){
-        System.out.println(entriesArrayList.get(entriesArrayList.size() -1).getSurname());
-        System.out.println(entriesArrayList.get(3).getSurname());
-    }
-
     @Override
     public void insertEntry(Entry entry) {
+        //Inserts entries into the array
         entriesArrayList.add(entry);
     }
 
     @Override
     public void deleteEntryUsingName(String surname) {
+        //Deletes an entry by surname
         for(int i = 0;i<entriesArrayList.size(); i++){
             if (entriesArrayList.get(i) != null){
                 if(entriesArrayList.get(i).getSurname().equals(surname)) {
@@ -30,6 +27,7 @@ public class ArrayListDirectory implements Directory {
 
     @Override
     public void deleteEntryUsingExtension(String number) {
+        //Deletes an entry by telephone extension number
         for(int i = 0; i<entriesArrayList.size(); i++){
             if (entriesArrayList.get(i).getTelephoneExtension() == Integer.parseInt(number)){
                 entriesArrayList.remove(i);
@@ -40,6 +38,7 @@ public class ArrayListDirectory implements Directory {
 
     @Override
     public void updateExtensionUsingName(String surname, String newNumber) {
+        //Updates Extension of an entry by finding it by surname
         for(int i = 0; i<entriesArrayList.size(); i++){
             if (entriesArrayList.get(i).getSurname().equals(surname)){
                 entriesArrayList.get(i).setTelephoneExtension(Integer.parseInt(newNumber));
@@ -49,6 +48,7 @@ public class ArrayListDirectory implements Directory {
 
     @Override
     public String lookupExtension(String surname) {
+        //Looks up an entry by its extension number
         String extensionResult = "";
         for(int i = 0; i<entriesArrayList.size(); i++){
             if(entriesArrayList.get(i).getSurname() == surname){
@@ -60,6 +60,7 @@ public class ArrayListDirectory implements Directory {
 
     @Override
     public List<Entry> toArrayList() {
+        //Returns entries in an ArrayList
         return entriesArrayList;
     }
 }

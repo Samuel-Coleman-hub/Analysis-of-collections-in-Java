@@ -8,6 +8,7 @@ import java.util.List;
 
 public class output {
     public static void createTable(List<Entry> entries){
+        //Creates the ASCII table using the data that it is passed
 
         String leftAlignFormat = "| %-15s | %-8s | %-15s     |%n";
         System.out.format("+-----------------+----------+---------------------+%n");
@@ -22,6 +23,7 @@ public class output {
 
     public static void writeToCSV(List<Entry> entries){
         FileWriter fileWriter = null;
+        //Exports data as a CSV file
 
         try{
             fileWriter = new FileWriter("Staff.csv");
@@ -50,8 +52,9 @@ public class output {
 
     }
 
-    public static void WriteToTxt(Long[][] performanceStats){
+    public static void WriteToTxt(Long[][] performanceStats, String fileLocation){
         FileWriter fileWriter = null;
+        //Writes the performance stats to a txt file
 
         List<String> headingName = new ArrayList<>();
         headingName.add("array Directory InsertEntry() Stats: ");
@@ -68,17 +71,17 @@ public class output {
         headingName.add("HashMap Directory lookUpExtension() Stats: ");
 
         try{
-            fileWriter = new FileWriter("stats.txt");
+            fileWriter = new FileWriter(fileLocation);
             for (int i = 0; i<12; i++){
                 fileWriter.append(headingName.get(i));
-                fileWriter.append("\n");
-                fileWriter.append("Worst Case: " + performanceStats[i][0]);
-                fileWriter.append("\n");
-                fileWriter.append("Average Case: " + performanceStats[i][1]);
-                fileWriter.append("\n");
-                fileWriter.append("Best case: " + performanceStats[i][2]);
-                fileWriter.append("\n");
-                fileWriter.append("\n");
+                fileWriter.append(String.format("%n"));
+                fileWriter.append("Worst Case: " + performanceStats[i][0] + "ns");
+                fileWriter.append(String.format("%n"));
+                fileWriter.append("Average Case: " + performanceStats[i][1] + "ns");
+                fileWriter.append(String.format("%n"));
+                fileWriter.append("Best case: " + performanceStats[i][2] + "ns");
+                fileWriter.append(String.format("%n"));
+                fileWriter.append(String.format("%n"));
             }
             System.out.println("Printed to TextFile");
         }catch(Exception e){

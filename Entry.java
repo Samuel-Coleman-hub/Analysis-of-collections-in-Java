@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Entry {
+    //Class for creating entry objects
     private String surname;
     private String initials;
     private int telephoneExtension;
