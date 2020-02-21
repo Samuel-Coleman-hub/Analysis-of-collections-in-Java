@@ -173,6 +173,7 @@ public class Performance {
         //Calculates stats for deleting by surname in arrayListDirectory
         for (int i = 0; i<1000; i++){
             stopWatch.start();
+            //System.out.println(arrayTimeRecordings.get(i));
             arrayListDirectory.deleteEntryUsingName(arrayListDirectory.toArrayList().get(0).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
@@ -208,6 +209,7 @@ public class Performance {
         //Calculates stats for deleting by extension in arrayListDirectory
         for (int i = 0; i<1000; i++){
             stopWatch.start();
+            //System.out.println(arrayTimeRecordings.get(i));
             arrayListDirectory.deleteEntryUsingExtension(Integer.toString(arrayListDirectory.toArrayList().get(i).
                     getTelephoneExtension()));
             stopWatch.stop();
@@ -225,6 +227,7 @@ public class Performance {
         //Calculates stats for lookup in arrayListDirectory
         for (int i = 0; i<1000; i++){
             stopWatch.start();
+            //System.out.println(arrayTimeRecordings.get(i));
             arrayListDirectory.lookupExtension(Integer.toString(arrayListDirectory.toArrayList().get(i).
                             getTelephoneExtension()));
             stopWatch.stop();
@@ -251,6 +254,7 @@ public class Performance {
                     staffData.add(value);
                 }
                 Entry entry = new Entry(staffData);
+                //System.out.println(arrayTimeRecordings.get(i));
                 stopWatch.start();
                 hashMapDirectory.insertEntry(entry);
                 stopWatch.stop();
@@ -294,6 +298,7 @@ public class Performance {
         //Calculates stats for deleting by surname in HashMapDirectory
         for (int i = 0; i<hashMapDirectory.toArrayList().size(); i++){
             stopWatch.start();
+            //System.out.println(arrayTimeRecordings.get(i));
             hashMapDirectory.deleteEntryUsingName(hashMapDirectory.toArrayList().get(0).getSurname());
             stopWatch.stop();
             arrayTimeRecordings.add(stopWatch.getElapsedTime());
@@ -394,6 +399,7 @@ public class Performance {
         for (int i = 0; i<=values.size() - 1;i++){
             totalTimes += values.get(i);
         }
+        //Works correctly now as used the wrong operator
         return totalTimes/values.size();
     }
 

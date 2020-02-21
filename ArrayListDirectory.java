@@ -16,6 +16,7 @@ public class ArrayListDirectory implements Directory {
     public void deleteEntryUsingName(String surname) {
         //Deletes an entry by surname
         for(int i = 0;i<entriesArrayList.size(); i++){
+            //Issue from testing was due to not checking for null
             if (entriesArrayList.get(i) != null){
                 if(entriesArrayList.get(i).getSurname().equals(surname)) {
                     entriesArrayList.remove(i);

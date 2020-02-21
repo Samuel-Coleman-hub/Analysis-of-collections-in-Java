@@ -15,6 +15,7 @@ public class ArrayDirectory implements Directory {
                 entries[i] = entry;
                 break;
             }
+            //Issue from testing was due to not checking for null
         }
 
 
@@ -30,6 +31,7 @@ public class ArrayDirectory implements Directory {
                     entries[i] = null;
                     break;
                 }
+                //Issue from testing was due to not checking for null
             }
 
         }
@@ -39,6 +41,7 @@ public class ArrayDirectory implements Directory {
     public void deleteEntryUsingExtension(String number) {
         //Deletes an entry by telephone extension number
         for(int i = 0; i<entries.length; i++){
+            //Issue from testing was due to not checking for null
             if(entries[i] != null){
                 if(entries[i].getTelephoneExtension() == Integer.parseInt(number)) {
                     entries[i] = null;
@@ -64,6 +67,7 @@ public class ArrayDirectory implements Directory {
         //Looks up an entry by its extension number
         String extensionResult = "";
         for(int i = 0; i<entries.length; i++){
+            //Issue from testing was due to not checking for null
             if (entries[i] != null) {
                 if (entries[i].getSurname() == surname) {
                     extensionResult = Integer.toString(entries[i].getTelephoneExtension());
